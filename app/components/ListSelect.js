@@ -25,21 +25,19 @@ const  ListSelect = ({setValidated,setError,emails,tac,setShowListSelect,setAllD
       console.log(dataUser, 'dataUser')
       if (!isValidEmail(dataUser.emailUser) || tac === false ||  Object.getOwnPropertyNames(dataUser).length === 0 || dataUser.userName === undefined  || dataUser.emailUser === undefined  ) {
         setError(true);
-        // console.log('Field validator', fieldValidator())
         return;
       }
       setValidated(true);
-      //setShowLoadSpin(true);
       setError(false);
       const selectedMps = await emails.filter((email, index) => checklistStates[index]);
-      //const selectedEmails = await selectedMps.map((mp) => mp.email ? mp.email.trim() : mp.contact.trim());
+      const selectedEmails = await selectedMps.map((mp) => mp.email ? mp.email.trim() : mp.contact.trim());
       if(checklistStates.every(state => !state)) {
         handleShow();
         setHideIAPrompt(true);
         setShowFindForm(true);
 
       } else {
-        setAllDataIn(selectedMps);
+        setAllDataIn(selectedEmails);
         setEmailData({
           ...dataUser
         });
@@ -72,7 +70,7 @@ const  ListSelect = ({setValidated,setError,emails,tac,setShowListSelect,setAllD
                         className='form-check-input'
                     />
                     <h5 className='list-mp-row-info'>
-                      {email}
+                      {email.name}
                     </h5>
                 </label>
             ))}

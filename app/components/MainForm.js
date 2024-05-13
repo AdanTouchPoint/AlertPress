@@ -41,6 +41,8 @@ const MainForm = ({
   setAllDataIn,
   colors,
   formFields,
+  emails,
+  setEmails
 }) => {
   const [showLoadSpin, setShowLoadSpin] = useState(false);
   const [showList, setShowList] = useState(true);
@@ -51,7 +53,7 @@ const MainForm = ({
   const [showThankYou, setShowThankYou] = useState(true);
   const [tac, setTac] = useState(false);
   const [showListSelect,setShowListSelect] = useState(false)
-  const [emails,setEmails]= useState(['TEST1','TEST2'])
+ 
   const [many, setMany] =  useState(false)
   const [showMainContainer, setShowMainContainer] = useState(false)
   const loading = (cl) => {

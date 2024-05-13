@@ -25,7 +25,7 @@ export async function POST(req) {
         role: 'user',
         content: `${separateObjects.prompt}`
       },
-      {role: "system", content:"the answer must be strictly in JSON object like this {{subject:},{message:}} that structure never has to change "}
+      {role: "system", content:"the answer must be in JSON object like this {{subject:},{message:}} that structure never has to change, avoid propierties nesting"}
     ],
     response_format: { type: "json_object" },
     max_tokens: 200,

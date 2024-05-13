@@ -11,6 +11,7 @@ import { fetchMainContent } from './assets/petitions/fetchMainContent';
 import { fetchAllLeads } from './assets/petitions/fetchLeads';
 import { fetchConfig } from './assets/petitions/fetchConfig';
 import {fetchColors} from './assets/petitions/fetchColors'
+import { fetchRepresentatives } from './assets/petitions/fetchRepresentatives';
 //require('dotenv').config()
 function Home() {
   const [configurations , setConfigurations]= useState({
@@ -44,6 +45,7 @@ function Home() {
         toGetAllLeads:'/leads/',
         toGetColors:'/theme/'
       })
+    const [emails,setEmails]= useState(['TEST1','TEST2'])
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
     const [states, setStates] = useState([])
@@ -93,9 +95,9 @@ function Home() {
             fetchMainContent('GET', backendURLBase, endpoints.toGetMainData, clientId, '', setMainData, setFormFields),
             fetchTweet('GET', backendURLBase, endpoints.toGetTweets, clientId, '', setTweet),
             fetchTYM('GET', backendURLBase, endpoints.toGetThankYouMessage, clientId, '', setTypData),
-            fetchColors('GET', backendURLBase, endpoints.toGetColors, clientId, '', setColors, colors )
+            fetchColors('GET', backendURLBase, endpoints.toGetColors, clientId, '', setColors, colors ),
             //fetchEmailData('GET', backendURLBase, endpoints.toGetQuestions, clientId, "", setDataUser),
-            //fetchStatesData('GET', backendURLBase, endpoints.toGetAllRepresentatives, clientId, '', setStates),
+            fetchRepresentatives('GET', backendURLBase, endpoints.toGetAllRepresentatives, clientId, '',setMp, setEmails)
             //fetchQuestions('GET', backendURLBase, endpoints.toGetQuestions, clientId, '', setDataQuestions),
           ]).then(() => {
             
@@ -136,6 +138,8 @@ function Home() {
         
         !loading && (
           <MainForm
+              emails={emails}
+              setEmails={setEmails}
               configurations={configurations}
               setLeads={setLeads}
               leads={leads}

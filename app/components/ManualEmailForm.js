@@ -67,9 +67,6 @@ const ManualEmailForm = ({
   const handleSend = async (e) => {
     e.preventDefault();
     let currentSubject = dataUser.message;
-    // console.log(currentSubject)
-    if (many === true) {
-      // console.log(allDataIn);
       const payload = await fetchData(
         "GET",
         backendURLBaseServices,
@@ -124,62 +121,6 @@ const ManualEmailForm = ({
         );
       }
       return;
-    }
-    // console.log(dataUser.subject, 'datauser subject')
-    const payload = await fetchData(
-      "GET",
-      backendURLBaseServices,
-      endpoints.toSendBatchEmails,
-      clientId,
-      `to=${emailData.email}&subject=${currentSubject}&firstName=${
-        dataUser.userName
-      }&emailData=${
-        dataUser.emailUser
-      }&text=${dataUser.message.replace(/\n\r?/g, "<br/>")}`
-    );
-    const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>")
-    if (payload.success === true) {
-      fetchLeads(
-        true,
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        emailData,
-        messageEmail,
-        'message-single-representative-lead'
-      );
-      setShowManualEmailForm(true);
-      setShowFindForm(true);
-      setShowEmailPreview(true);
-      setShowThankYou(false);
-      setLeads(leads + 1);
-    }
-    if (payload.success !== true) {
-      fetchLeads(
-        false,
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        emailData,
-        messageEmail,
-        'message-sinlge-representative-not-sended-lead'
-      );
-      return (
-        <Alert>
-          El correo no ha sido enviado con éxito, por favor intente de nuevo más
-          tarde
-          <Button
-            className={"button-email-form"}
-            variant={"dark"}
-            onClick={back}
-          >
-            Regresar
-          </Button>
-        </Alert>
-      );
-    }
   };
   const back = (e) => {
     e.preventDefault();

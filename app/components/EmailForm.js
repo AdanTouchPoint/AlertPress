@@ -49,8 +49,6 @@ const EmailForm = ({
   const [requestCompletion, setRequestCompletion] = useState([]);
   const [ableGenIA, setAbleGenIA] = useState(true);
   const [continueBtn, setcontinueBtn] = useState(true);
-  
-  
   const handleMessageChange = (e) => {
     e.preventDefault();
     setDataUser({
@@ -61,14 +59,11 @@ const EmailForm = ({
     if (!dataUser.message || dataUser.message === '') {
       setAbleGenIA(false);
     }
-    // console.log(dataUser);
   };
   const handleContinue = async (e) => {
     e.preventDefault();
     try {
       let payload;
-      // console.log(dataUser, 'sendmany')
-      if (many === true) {
         payload = await fetchData(
           "GET",
           backendURLBaseServices,
@@ -80,20 +75,6 @@ const EmailForm = ({
             dataUser.emailUser
           }&text=${dataUser.message.replace(/\n\r?/g, "<br/>")}`
         )
-      } else{
-        // console.log(allDataIn);
-        payload = await fetchData(
-          "GET",
-          backendURLBaseServices,
-          endpoints.toSendBatchEmails,
-          clientId,
-          `to=${emailData.email}&subject=${dataUser.subject}&firstName=${
-            dataUser.userName
-          }&emailData=${
-            dataUser.emailUser
-          }&text=${dataUser.message.replace(/\n\r?/g, "<br/>")}`
-        );
-      }
       const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>")
       if (payload.success === true) {
         fetchLeads(
