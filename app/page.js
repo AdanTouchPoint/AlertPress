@@ -24,9 +24,7 @@ function Home() {
   const [emailData, setEmailData] = useState({
     userName: ''
   })
-  const [dataUser, setDataUser] = useState({
-
-      })
+  const [dataUser, setDataUser] = useState({})
       const [backendURLBase] = useState(`${process.env.NEXT_PUBLIC_URL}`)
       const [backendURLBaseServices] = useState(`${process.env.NEXT_PUBLIC_URL_SERVICES}`)
       const [clientId] = useState(`${process.env.NEXT_PUBLIC_CLIENT_ID}`)
@@ -96,19 +94,12 @@ function Home() {
             fetchTweet('GET', backendURLBase, endpoints.toGetTweets, clientId, '', setTweet),
             fetchTYM('GET', backendURLBase, endpoints.toGetThankYouMessage, clientId, '', setTypData),
             fetchColors('GET', backendURLBase, endpoints.toGetColors, clientId, '', setColors, colors ),
-            //fetchEmailData('GET', backendURLBase, endpoints.toGetQuestions, clientId, "", setDataUser),
             fetchRepresentatives('GET', backendURLBase, endpoints.toGetAllRepresentatives, clientId, '',setMp, setEmails)
-            //fetchQuestions('GET', backendURLBase, endpoints.toGetQuestions, clientId, '', setDataQuestions),
           ]).then(() => {
-            
             setLoading(false) 
-            
-            
-            // cambia el estado a "false" cuando todas las consultas se hayan completado
           }).catch((error) => console.error(error))
         }
         fetchData()
-        
     },[])
     useEffect(() => {
       if (colors && Object.keys(colors).length !== 0) {
@@ -124,18 +115,13 @@ function Home() {
         document.documentElement.style.setProperty('--back-btns-font-color', colors.buttonB_text_colot);
       }
     }, [colors]);
-    
-
-
     return(
       <>
       
       {
         loading &&  <LoadingMainForm cl={"spinner-container"} />
       }
-      
       {
-        
         !loading && (
           <MainForm
               emails={emails}
@@ -168,14 +154,9 @@ function Home() {
               setAllDataIn={setAllDataIn}
               colors={colors}
           />
-
-        )
-        
-      }
-      
+        )        
+      }      
       </>
     )
-
 }
-
 export default Home

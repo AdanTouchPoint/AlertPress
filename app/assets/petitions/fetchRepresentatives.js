@@ -16,7 +16,6 @@ const fetchRepresentatives = async (petitionMethod, backendURLBase, endpoint, cl
 
 }
 
-
 export{
     fetchRepresentatives
 }
