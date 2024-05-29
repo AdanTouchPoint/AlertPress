@@ -3,8 +3,6 @@ import React, {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainForm from "./components/MainForm";
 import LoadingMainForm from './components/LoadingMainForm';
-import { fetchQuestions } from './assets/petitions/fetchQuestions';
-import { fetchStatesData } from './assets/petitions/fetchStatesData';
 import { fetchTweet } from './assets/petitions/fetchTweet';
 import { fetchTYM } from './assets/petitions/fetchTYM';
 import { fetchMainContent } from './assets/petitions/fetchMainContent';

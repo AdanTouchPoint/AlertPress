@@ -4,11 +4,8 @@ import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/cjs/Col";
 import Alert from "react-bootstrap/Alert";
-import Loader from "react-loader-spinner";
 import { fetchData } from "../assets/petitions/fetchData";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
-import { urlEncode } from "../assets/helpers/utilities";
-import { useCompletion } from "ai/react";
 import { animateScroll as scroll } from "react-scroll";
 import LoadingMainForm from "./LoadingMainForm";
 import ManualEmailForm from "./ManualEmailForm";
@@ -35,20 +32,14 @@ const EmailForm = ({
   setMany,
   many,
   setShowMainContainer,
-  isLoading,
   hideEmailForm,
-  setHideEmailForm 
+  setHideEmailForm,
 }) => {
   const [showEmailPreview, setShowEmailPreview] = useState(true);
-  const [showManualEmailForm, setShowManualEmailForm] = useState(true)
+  const [showManualEmailForm, setShowManualEmailForm] = useState(true);
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState(false);
-  const [showLoadSpin, setShowLoadSpin] = useState(false);
-  const { userName, subject } = dataUser;
-  const [emailMessage, setEmailMessage] = useState({});
-  const [requestCompletion, setRequestCompletion] = useState([]);
   const [ableGenIA, setAbleGenIA] = useState(true);
-  const [continueBtn, setcontinueBtn] = useState(true);
   const handleMessageChange = (e) => {
     e.preventDefault();
     setDataUser({
@@ -56,7 +47,7 @@ const EmailForm = ({
       subject: e.target.name === "subject" ? e.target.value : dataUser.subject,
       message: e.target.name === "message" ? e.target.value : dataUser.message,
     });
-    if (!dataUser.message || dataUser.message === '') {
+    if (!dataUser.message || dataUser.message === "") {
       setAbleGenIA(false);
     }
   };
@@ -64,18 +55,19 @@ const EmailForm = ({
     e.preventDefault();
     try {
       let payload;
-        payload = await fetchData(
-          "GET",
-          backendURLBaseServices,
-          endpoints.toSendBatchEmails,
-          clientId,
-          `to=${allDataIn}&subject=${dataUser.subject}&firstName=${
-            dataUser.userName
-          }&emailData=${
-            dataUser.emailUser
-          }&text=${dataUser.message.replace(/\n\r?/g, "<br/>")}`
-        )
-      const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>")
+      payload = await fetchData(
+        "GET",
+        backendURLBaseServices,
+        endpoints.toSendBatchEmails,
+        clientId,
+        `to=${allDataIn}&subject=${dataUser.subject}&firstName=${
+          dataUser.userName
+        }&emailData=${dataUser.emailUser}&text=${dataUser.message.replace(
+          /\n\r?/g,
+          "<br/>"
+        )}`
+      );
+      const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>");
       if (payload.success === true) {
         fetchLeads(
           true,
@@ -85,10 +77,10 @@ const EmailForm = ({
           dataUser,
           emailData,
           messageEmail,
-          'message'
+          "message"
         );
         setHideIAPrompt(true);
-        setHideEmailForm(true)
+        setHideEmailForm(true);
         setShowFindForm(true);
         setShowEmailPreview(true);
         setShowThankYou(false);
@@ -102,113 +94,112 @@ const EmailForm = ({
           dataUser,
           emailData,
           messageEmail,
-          'message-not-sended'
+          "message-not-sended"
         );
         throw new Error("Email not sent successfully");
       }
     } catch (error) {
       console.error("Error handling continue:", error);
-      // Mostrar un mensaje de error al usuario, puedes agregar un estado para manejarlo
       setError(true);
     }
   };
   const back = (e) => {
     e.preventDefault();
-    setHideEmailForm(true)
+    setHideEmailForm(true);
     setShowFindForm(false);
-    setShowMainContainer(false);    
+    setShowMainContainer(false);
   };
-  const loading = (cl) => {
-    scroll.scrollTo(1000);
-    return <LoadingMainForm cl={cl} />;
-  };
-  const manualMailChange = async (e) =>{
+  const manualMailChange = async (e) => {
     e.preventDefault();
     setDataUser({
       ...dataUser,
-      subject:'',
-      message:''
-    })
+      subject: "",
+      message: "",
+    });
     setHideEmailForm(true);
-    setShowManualEmailForm(false)
-  }
+    setShowManualEmailForm(false);
+  };
   return (
     <>
-      {/* {isLoading == true ? (
-              <div className="emailContainer">
-                {loading("spinner-containerB")}
-
-              </div>
-            ) : ( */}
-            <div className={"emailContainer"} hidden={hideEmailForm}>
+      <div className={"emailContainer"} hidden={hideEmailForm}>
         {error ? (
           <Alert variant={"danger"}>
             All fields are required, please fill in the missing ones.
           </Alert>
         ) : null}
         {console.log(allDataIn)}
-        <Form
-          name="fm-email"
-          // onSubmit={handleContinue}
-          noValidate
-          validated={validated}
-        >
+        <Form name="fm-email" noValidate validated={validated}>
           <div>
             <>
-            <h3 className="ia-instructions-title main-text-title">Edit & Send</h3>
-            <p className="ia-instructions-p main-text-instruction">Edit and/or send the email that was written for you by AI. </p>    
-            </>  
+              <h3 className="ia-instructions-title main-text-title">
+                Edit & Send
+              </h3>
+              <p className="ia-instructions-p main-text-instruction">
+                Edit and/or send the email that was written for you by AI.{" "}
+              </p>
+            </>
+            <div>
               <div>
-                <div>
-                  <Col>
-                      <Form.Group>
-                        <Form.Label className="label-ia-prompt">
-                          Subject Line
-                        </Form.Label>
-                        <Form.Control
-                          id="subject-emailform"
-                          onChange={handleMessageChange}
-                          name="subject"
-                          type="text"
-                          defaultValue={dataUser.subject}
-                        />
-                      </Form.Group>
-                    <Form.Group>
-                     <Form.Label className="label-ia-prompt">Email</Form.Label>
-                      <Form.Control
-                        id="message-emailform"
-                        onChange={handleMessageChange}
-                        as="textarea"
-                        rows={12}
-                        name="message"
-                        defaultValue={dataUser.message}
-                        className="email-ia-text-area"
-                        required
-                      />
-                    </Form.Group>
-                  </Col>
-                </div>
-                <div className={"container buttons-container-email-form btn-container-checklist"}>
-                  <Button onClick={back} className={"button-email-form back-button"}>
-                    Back
-                  </Button>
-                  
-                  <Button
-                    onClick={handleContinue}
-                    className={"button-email-form secundary-btn"}
-                  >
-                    Send
-                  </Button>
-                </div>
+                <Col>
+                  <Form.Group>
+                    <Form.Label className="label-ia-prompt">
+                      Subject Line
+                    </Form.Label>
+                    <Form.Control
+                      id="subject-emailform"
+                      onChange={handleMessageChange}
+                      name="subject"
+                      type="text"
+                      defaultValue={dataUser.subject}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label-ia-prompt">Email</Form.Label>
+                    <Form.Control
+                      id="message-emailform"
+                      onChange={handleMessageChange}
+                      as="textarea"
+                      rows={12}
+                      name="message"
+                      defaultValue={dataUser.message}
+                      className="email-ia-text-area"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
               </div>
-              <div className="change-to-manual-email-container">
-          <span className="change-to-manual-email-letters" onClick={manualMailChange}>OR Click here to write without using AI <u className="change-to-manual-email-btn">Write it yourself</u></span>
-        </div>
+              <div
+                className={
+                  "container buttons-container-email-form btn-container-checklist"
+                }
+              >
+                <Button
+                  onClick={back}
+                  className={"button-email-form back-button"}
+                >
+                  Back
+                </Button>
+
+                <Button
+                  onClick={handleContinue}
+                  className={"button-email-form secundary-btn"}
+                >
+                  Send
+                </Button>
+              </div>
+            </div>
+            <div className="change-to-manual-email-container">
+              <span
+                className="change-to-manual-email-letters"
+                onClick={manualMailChange}
+              >
+                OR Click here to write without using AI{" "}
+                <u className="change-to-manual-email-btn">Write it yourself</u>
+              </span>
+            </div>
           </div>
         </Form>
-        
-        </div>
-      {/* )} */}
+      </div>
       <ManualEmailForm
         many={many}
         setMany={setMany}
@@ -231,7 +222,6 @@ const EmailForm = ({
         questions={questions}
         allDataIn={allDataIn}
         setAllDataIn={setAllDataIn}
-        
         setShowMainContainer={setShowMainContainer}
         showManualEmailForm={showManualEmailForm}
         setShowManualEmailForm={setShowManualEmailForm}
