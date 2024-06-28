@@ -129,15 +129,15 @@ const EmailForm = ({
         ) : null}
         {console.log(allDataIn)}
         <Form name="fm-email" noValidate validated={validated}>
-          <div>
-            <>
+          <div >
+            <div className="instruction-cont">
               <h3 className="ia-instructions-title main-text-title">
                 Edit & Send
               </h3>
               <p className="ia-instructions-p main-text-instruction">
                 Edit and/or send the email that was written for you by AI.{" "}
               </p>
-            </>
+            </div>
             <div>
               <div>
                 <Col>

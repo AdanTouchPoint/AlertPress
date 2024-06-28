@@ -1,8 +1,12 @@
 .share-buttons {
     padding: 0.5rem 1rem;
-    margin-right: 1rem;
+
     border-radius: 5px;
     cursor: pointer;
+}
+.share-buttoner{
+    display: flex;
+    column-gap: 15px;
 }
 .button:hover {
     background-color: #2d4373;

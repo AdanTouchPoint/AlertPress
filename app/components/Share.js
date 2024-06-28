@@ -7,7 +7,7 @@ import LinkedinIcon from "./icons/LinkedinIcon";
 import "./share.css";
 const Share = ({shareMessage,shareUrl, colors }) => {  
   return (
-    <div >
+    <div className="share-buttoner" >
       <FacebookShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} quote={shareMessage? shareMessage.replace(/"/g, '&quot;') :  'Fill this in your dashboard'} hashtag="#yodecidocomomemuevo" className="share-buttons">
       <FacebookIcon primaryColor={colors.background_color} secundaryColor={colors.link_color}  />
       </FacebookShareButton>

@@ -48,6 +48,7 @@ border: 1px solid var(--main-option-text-and-border-color);
 .main-form-inputs{
   min-height: 70px;
   color: var(--main-option-text-and-border-color);
+  font-size: 17px;
 }
 .form-control:focus{
   color: var(--main-option-text-and-border-color);
@@ -175,14 +176,14 @@ line-height: normal;
 .select-label{
   margin-top: 30px;
   margin-bottom: 0px;
-  font-size: 19px;
+  font-size: 17px;
 }
 .form-group{
   max-width: 1050px;
 }
 .main-find-btn-container{
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .find-btn-main-form, .find-btn-main-form:hover, secundary-btn:hover{
   margin: 10px 0px;
@@ -198,6 +199,7 @@ line-height: normal;
 }
 .senators-container{
   text-align: justify;
+  padding: 0pc !important;
 }
 .representatives-container{
   padding: 20px 0px;
@@ -295,7 +297,7 @@ display: flex;
   border: none;
   text-align: center;
   font-family: Inter;
-  font-size: 30px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -340,7 +342,7 @@ display: flex;
 .label-ia-prompt{
   color: var(--main-texts-color);
 font-family: Inter;
-font-size: 22px;
+font-size: 17px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
@@ -349,7 +351,8 @@ margin-top: 30px;
 .list-mp-row-info{
   display: flex;
  flex-direction: column;
- row-gap: 5px;   
+ row-gap: 5px;
+ margin: 0px;   
 }
 
 .ia-instructions-title{
@@ -368,7 +371,7 @@ margin-top: 30px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 .subject-input{
   margin-bottom: 35px;
@@ -378,7 +381,7 @@ margin-top: 30px;
   background: var(--main-inputs-bg-color);
   border-color: var(--main-option-text-and-border-color);
   box-shadow: none;
-  font-size: 25px;
+  font-size: 17px;
   
 }
 .secundary-btn, .secundary-btn:disabled, .secundary-btn:active, .secundary-btn:focus-visible{
@@ -407,7 +410,7 @@ line-height: normal;
 .subject-label{
   color: var(--main-texts-color);
 font-family: Inter;
-font-size: 25px;
+font-size: 17px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
@@ -436,7 +439,7 @@ line-height: normal;
   color: var(--main-texts-color);
 text-align: center;
 font-family: Inter;
-font-size: 60px;
+font-size: 40px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
@@ -445,7 +448,7 @@ line-height: normal;
   color: var(--main-texts-color);
 text-align: center;
 font-family: Inter;
-font-size: 30px;
+font-size: 25px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
@@ -454,25 +457,26 @@ line-height: normal;
   color: var(--main-texts-color);
 text-align: center;
 font-family: Inter;
-font-size: 40px;
+font-size: 30px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
+margin-top: 80px;
 }
 .capitalize-style{
   text-transform: capitalize;
 }
 .instruction-text, .main-text-title{
 font-family: Inter;
-font-size: 60px;
+font-size: 40px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
 }
 .main-text-instruction{
-  font-size: 20px;
+  
   font-family: Inter;
-  font-size: 30px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -500,13 +504,16 @@ line-height: normal;
   .fields-form{
     display: grid;
     grid-template-columns: 1fr;
-    padding: 0px 20px;
+    padding: 0px;
   }
   .instructions-container{
-    padding: 0px 20px;
+    padding: 0px;
   }
   .terms-and-cond-input{
-    padding: 0px 20px;
+    padding: 0px;
+  }
+  .instruction-cont{
+    border-bottom: 1px solid var(--main-option-text-and-border-color);
   }
   .main-find-btn-container{
     justify-content: center;
@@ -534,7 +541,7 @@ line-height: normal;
     display: flex;
   }
   .container-content{
-    padding: 40px 10px !important;
+    padding: 40px 30px !important;
   }
   .mobile-btns-cont{
     display: grid;

@@ -110,7 +110,7 @@ function Home() {
         document.documentElement.style.setProperty('--primary-btn-bg-color', colors.buttonA_color);
         document.documentElement.style.setProperty('--primary-btn-font-color', colors.buttonA_text_color);
         document.documentElement.style.setProperty('--back-btns-bg-color', colors.buttonB_color);
-        document.documentElement.style.setProperty('--back-btns-font-color', colors.buttonB_text_colot);
+        document.documentElement.style.setProperty('--back-btns-font-color', colors.buttonB_text_color);
       }
     }, [colors]);
     return(
